@@ -5,6 +5,8 @@ var gulp = require('gulp'),
     browserify = require('browserify'),
     watchify = require('watchify'),
     reactify = require('reactify'),
+    concat = require('gulp-concat'),
+    sourcemaps = require('gulp-sourcemaps'),
     path = require('path');
 
 gulp.task('html', function() {
@@ -39,6 +41,17 @@ gulp.task('scripts', function() {
     return rebundle();
 });
 
+gulp.task('libs', function() {
+    var src = [
+        'bower_components/firebase/firebase-debug.js'
+    ];
+    gulp.src(src)
+        .pipe(sourcemaps.init())
+        .pipe(concat('libs.js'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('tmp'));
+});
+
 gulp.task('server', function() {
     var server = new Hapi.Server();
     server.connection({ port: 8000 });
@@ -57,4 +70,4 @@ gulp.task('server', function() {
     });
 });
 
-gulp.task('default', ['scripts', 'html', 'server']);
+gulp.task('default', ['libs', 'scripts', 'html', 'server']);

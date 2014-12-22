@@ -9,5 +9,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "firebase": "~2.0.6"
+  }
 }
