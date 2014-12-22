@@ -1,11 +1,15 @@
 /** @jsx React.DOM */
 
-var React = require('react');
+var React = require('react'),
+    Router = require('react-router'),
+    Route = Router.Route,
+    App = require('./components/app');
 
-var App = React.createClass({
-    render: function() {
-        return <div>Hello</div>;
-    }
+var routes = (
+    <Route name="app" path="/" handler={App}>
+    </Route>
+);
+
+Router.run(routes, Router.HistoryLocation, function(Handler) {
+    React.render(<Handler/>, document.body);
 });
-
-React.render(<App />, document.body);
