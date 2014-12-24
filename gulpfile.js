@@ -7,7 +7,8 @@ var gulp = require('gulp'),
     reactify = require('reactify'),
     concat = require('gulp-concat'),
     sourcemaps = require('gulp-sourcemaps'),
-    path = require('path');
+    path = require('path'),
+    s = require('underscore.string');
 
 gulp.task('html', function() {
     gulp.src('./app/index.html')
@@ -58,9 +59,13 @@ gulp.task('server', function() {
     server.route({
         method: 'GET',
         path: '/{path*}',
-        handler: {
-            directory: {
-                path: path.join(__dirname, '/tmp')
+        handler: function(req, reply) {
+            console.log('Request made to ' + req.path);
+            var path = req.path;
+            if(s.endsWith(path, '.js') || s.endsWith(path, '.css')) {
+                reply.file('./tmp' + path);
+            } else {
+                reply.file('./tmp/index.html');
             }
         }
     });
