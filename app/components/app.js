@@ -5,6 +5,9 @@ var React = require('react'),
 
 module.exports = React.createClass({
     render: function() {
-        return <RouteHandler/>;
+        return (
+            <h1>Jeopardy</h1>
+            <RouteHandler/>
+        );
     }
 });

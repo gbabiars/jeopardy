@@ -5,11 +5,16 @@ var React = require('react'),
     Route = Router.Route,
     DefaultRoute = Router.DefaultRoute,
     App = require('./components/app'),
-    BoardList = require('./components/board-list');
+    GameList = require('./components/game-list'),
+    Game = require('./components/edit/game'),
+    Board = require('./components/edit/board');
 
 var routes = (
     <Route name="app" path="/" handler={App}>
-        <DefaultRoute name="board-list" handler={BoardList} />
+        <DefaultRoute name="list-games" handler={GameList} />
+        <Route name="edit-game" path="/games/:gameId" handler={Game}>
+            <Route name="edit-board" path=":round" handler={Board} />
+        </Route>
     </Route>
 );
 

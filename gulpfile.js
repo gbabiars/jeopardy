@@ -7,6 +7,8 @@ var gulp = require('gulp'),
     reactify = require('reactify'),
     concat = require('gulp-concat'),
     sourcemaps = require('gulp-sourcemaps'),
+    sass = require('gulp-sass'),
+    autoprefixer = require('gulp-autoprefixer'),
     path = require('path'),
     s = require('underscore.string');
 
@@ -75,4 +77,13 @@ gulp.task('server', function() {
     });
 });
 
-gulp.task('default', ['libs', 'scripts', 'html', 'server']);
+gulp.task('styles', function() {
+    gulp.src('./app/styles/app.scss')
+        .pipe(sourcemaps.init())
+        .pipe(sass())
+        .pipe(sourcemaps.write())
+        .pipe(autoprefixer())
+        .pipe(gulp.dest('./tmp'));
+});
+
+gulp.task('default', ['libs', 'scripts', 'styles', 'html', 'server']);
